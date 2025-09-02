@@ -72,7 +72,7 @@ A comprehensive Point of Sale (POS) system built with Laravel 11 and Filament 3,
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/marifhasan/cosmetics-pos
    cd cosmetics-pos
    ```
 
