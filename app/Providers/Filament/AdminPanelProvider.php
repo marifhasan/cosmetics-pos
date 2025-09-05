@@ -32,6 +32,7 @@ class AdminPanelProvider extends PanelProvider
             ->colors([
                 'primary' => Color::Amber,
             ])
+            // ->viteTheme('resources/css/filament/admin.css')
             ->navigationGroups([
                 'Sales',
                 'Inventory', 
