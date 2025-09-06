@@ -13,6 +13,7 @@ use Filament\Support\Colors\Color;
 use Filament\Widgets;
 use App\Filament\Widgets\StockStatsOverview;
 use App\Filament\Widgets\LowStockAlert;
+use App\Filament\Widgets\PosStats;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -22,47 +23,48 @@ use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 class AdminPanelProvider extends PanelProvider
 {
-    public function panel(Panel $panel): Panel
-    {
-        return $panel
-            ->default()
-            ->id('admin')
-            ->path('admin')
-            ->login()
-            ->colors([
-                'primary' => Color::Blue,
-            ])
-            // ->viteTheme('resources/css/filament/admin.css')
-            ->navigationGroups([
-                'Sales',
-                'Inventory', 
-                'Products',
-                'Customers',
-                'System',
-            ])
-            ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
-            ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
-            ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
-            ->pages([
-                Pages\Dashboard::class,
-            ])
-            ->widgets([
-                // Widgets\AccountWidget::class,
-                // Widgets\FilamentInfoWidget::class,
-            ])
-            ->middleware([
-                EncryptCookies::class,
-                AddQueuedCookiesToResponse::class,
-                StartSession::class,
-                AuthenticateSession::class,
-                ShareErrorsFromSession::class,
-                VerifyCsrfToken::class,
-                SubstituteBindings::class,
-                DisableBladeIconComponents::class,
-                DispatchServingFilamentEvent::class,
-            ])
-            ->authMiddleware([
-                Authenticate::class,
-            ]);
-    }
+	public function panel(Panel $panel): Panel
+	{
+		return $panel
+			->default()
+			->id('admin')
+			->path('admin')
+			->login()
+			->colors([
+				'primary' => Color::Blue,
+			])
+			->viteTheme('resources/css/filament/admin.css')
+			->navigationGroups([
+				'Sales',
+				'Inventory',
+				'Products',
+				'Customers',
+				'System',
+			])
+			->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
+			->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
+			->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
+			->pages([
+				Pages\Dashboard::class,
+			])
+			->widgets([
+				StockStatsOverview::class,
+				LowStockAlert::class,
+				// PosStats::class,
+			])
+			->middleware([
+				EncryptCookies::class,
+				AddQueuedCookiesToResponse::class,
+				StartSession::class,
+				AuthenticateSession::class,
+				ShareErrorsFromSession::class,
+				VerifyCsrfToken::class,
+				SubstituteBindings::class,
+				DisableBladeIconComponents::class,
+				DispatchServingFilamentEvent::class,
+			])
+			->authMiddleware([
+				Authenticate::class,
+			]);
+	}
 }
